@@ -8,8 +8,7 @@
             "type": "java",
             "name": "App",
             "request": "launch",
-            "mainClass": "App",
-            "vmArgs": "-Djava.library.path=lib/native/windows"
+            "mainClass": "com.uelbosque.appliedMaths.App"
         }
     ]
 }
