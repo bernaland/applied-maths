@@ -3,10 +3,21 @@ package com.uelbosque.appliedMaths;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
+import com.uelbosque.appliedMaths.figures.Cone;
+import com.uelbosque.appliedMaths.figures.ShapeBase;
 import com.uelbosque.appliedMaths.figures.Sphere;
+import com.uelbosque.appliedMaths.figures.movements.Rotation;
+import com.uelbosque.appliedMaths.figures.movements.Translation;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.util.glu.GLU.*;
+
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
+import org.lwjgl.BufferUtils;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
@@ -19,7 +30,7 @@ public class App {
     private static float xPos = 0;
     private static float zPos = -10;
 
-    private static Sphere ball;
+    private static final ArrayList<ShapeBase> shapes = new ArrayList<ShapeBase>();
 
     public static void main(String[] args) throws Exception {
         mainWindow();
@@ -38,12 +49,51 @@ public class App {
         glDisable(GL_DEPTH_TEST);
         glClearColor(0, 0, 0, 0);
 
-        ball = new Sphere(1);
+        // shapes.add(new Sphere(1));
+        ShapeBase left = new Cone(4, 5, 5),
+            center = new Cone(4, 5, 5),
+            right = new Cone(4, 5, 5);
+
+        Rotation rLeft = new Rotation(-45, 1, 1, 0),
+            rCenter = new Rotation(45, 1, 0, 0),
+            rRight = new Rotation(45, 1, 1, 0);
+
+        Translation tLeft = new Translation(-3, 0, 0),
+            tRight = new Translation(3, 0, 0);
+
+        left.setRotation(rLeft);
+        center.setRotation(rCenter);
+        right.setRotation(rRight);
+        left.setTranslation(tLeft);
+        right.setTranslation(tRight);
+
+        shapes.add(left);
+        shapes.add(center);
+        shapes.add(right);
+    }
+
+    private static ByteBuffer getByteBufferFromString(){
+
+        String text = "ABCD";
+        int s = 256; //Take whatever size suits you.
+        BufferedImage b = new BufferedImage(s, s, BufferedImage.TYPE_4BYTE_ABGR);
+        Graphics2D g = b.createGraphics();
+        g.drawString(text, 0, 0);
+
+        int co = b.getColorModel().getNumComponents();
+
+        byte[] data = new byte[co * s * s];
+        b.getRaster().getDataElements(0, 0, s, s, data);
+
+        ByteBuffer pixels = BufferUtils.createByteBuffer(data.length);
+        pixels.put(data);
+        pixels.rewind();
+        return pixels;
     }
 
     private static void mainWindow() {
         try {
-            Display.setDisplayMode(new DisplayMode(1000, 800));
+            Display.setDisplayMode(new DisplayMode(1200, 900));
             Display.create();
             Display.setTitle("Applied Maths Project");
             Keyboard.create();
@@ -64,8 +114,15 @@ public class App {
             
         //     glRotated(60, 1, 0, 0);
         //     glRotated(60, 0, 1, 0);
+        // Translation trans = new Translation();
+        // trans.setzCoor(-10);
+        // ball.setTranslation(trans);
+        // ball.draw();
+        for (ShapeBase shape : shapes) {
+            shape.draw();
+        }
         
-            ball.draw();
+        glEnd();
         // }
         // glPopMatrix();
         // drawShape();
@@ -80,62 +137,6 @@ public class App {
             graph();
             rotation+=0.5;
         }
-    }
-
-    private static void drawShape() {
-        glPushMatrix();
-        {
-            glTranslatef(xPos, 0, zPos);
-            glRotatef(rotation, 1, 0, 0 );
-            
-            glBegin(GL_QUADS);
-			{
-				//Frente de color rojo
-				glColor3f(1f, 0f, 0f);
-				glVertex3f(-1, -1, 1);
-				glVertex3f(-1, 1, 1);
-				glVertex3f(1, 1, 1);
-				glVertex3f(1, -1, 1);
-				
-				//Fondo de color verde
-				glColor3f(0f, 1f, 0f);
-				glVertex3f(-1, -1, -1);
-				glVertex3f(-1, 1, -1);
-				glVertex3f(1, 1, -1);
-				glVertex3f(1, -1, -1);
-				
-				//Lado lateral izquierdo azul
-				glColor3f(0f, 0f, 1f);
-				glVertex3f(-1, -1, -1);
-				glVertex3f(-1, -1, 1);
-				glVertex3f(-1, 1, 1);
-				glVertex3f(-1, 1, -1);
-				
-				//Lado lateral derecho amarillo
-				glColor3f(1f, 1f, 0f);
-				glVertex3f(1, -1, -1);
-				glVertex3f(1, -1, 1);
-				glVertex3f(1, 1, 1);
-				glVertex3f(1, 1, -1);
-				
-				//Parte inferior de color celeste
-				glColor3f(0f, 1f, 1f);
-				glVertex3f(-1, -1, -1);
-				glVertex3f(1, -1, -1);
-				glVertex3f(1, -1, 1);
-				glVertex3f(-1, -1, 1);
-				
-				//Parte superior de color fucsia 
-				glColor3f(1f, 0f, 1f);
-				glVertex3f(-1, 1, -1);
-				glVertex3f(1, 1, -1);
-				glVertex3f(1, 1, 1);
-				glVertex3f(-1, 1, 1);
-				
-			}
-            glEnd();
-        }
-        glPopMatrix();
     }
 
     private static void clean() {
