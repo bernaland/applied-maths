@@ -1,6 +1,6 @@
 package com.uelbosque.appliedMaths.figures;
 
-class Vertex {
+class CircleVertex {
     private double x;
     private double y;
     private double z;
@@ -8,7 +8,7 @@ class Vertex {
     private double ny;
     private double nz;
 
-    public Vertex(double phi, double theta, double radius) {
+    public CircleVertex(double phi, double theta, double radius) {
         nx = Math.cos(phi) * Math.sin(theta);
         ny = Math.cos(phi) * Math.cos(theta);
         nz = Math.sin(phi);
