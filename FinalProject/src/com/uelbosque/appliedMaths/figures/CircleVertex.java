@@ -1,6 +1,6 @@
 package com.uelbosque.appliedMaths.figures;
 
-class CircleVertex {
+public class CircleVertex {
     private double x;
     private double y;
     private double z;
