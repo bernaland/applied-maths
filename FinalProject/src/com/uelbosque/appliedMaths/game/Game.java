@@ -17,6 +17,8 @@ public class Game {
     private final Random randGen = new Random(System.currentTimeMillis());
     private double angle = 0;
     private int suffles = -1;
+    private boolean selectCup = false;
+    private int selectedCup = 1;
 
     public Game() {
         shapes = new ArrayList<ShapeBase>();
@@ -44,7 +46,6 @@ public class Game {
         shapes.add(left);
         shapes.add(center);
         shapes.add(right);
-        shapes.add(new Selector());
     }
 
     public void moveBall() {
@@ -78,6 +79,10 @@ public class Game {
             shapes.remove(3);
         }
         suffles = 0;
+        for (ShapeBase shape : shapes) {
+            Rotation rotation = new Rotation(90, 1, 0, 0);
+            shape.setRotation(rotation);
+        }
     }
 
     public void draw() {
@@ -105,6 +110,8 @@ public class Game {
             shapes.get(0).setTranslation(new Translation(-3, 0, 0));
             shapes.get(1).setTranslation(new Translation(0, 0, 0));
             shapes.get(2).setTranslation(new Translation(3, 0, 0));
+            shapes.add(new Selector());
+            selectCup = true;
         }
         if (angle < -Math.PI && suffles >= 0) {
             angle = 0;
@@ -114,5 +121,27 @@ public class Game {
             shape.draw();
         }
         angle-=Math.PI/30;
+    }
+
+    public void moveSelector(Direction direction) {
+        if (selectCup) {
+            switch (direction) {
+                case Left:
+                    selectedCup--;
+                    selectedCup = selectedCup < 0 ? 2 : selectedCup;
+                    break;
+                case Right:
+                    selectedCup++;
+                    selectedCup = selectedCup > 2 ? 0 : selectedCup;
+                    break;
+                default:
+                    break;
+            }
+
+            int axisTranslation = selectedCup == 0 ? -3 :
+                selectedCup == 1 ? 0 : 3;
+
+            shapes.get(3).setTranslation(new Translation(axisTranslation, 0, 0));
+        }
     }
 }

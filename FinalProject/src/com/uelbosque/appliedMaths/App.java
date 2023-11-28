@@ -8,6 +8,7 @@ import com.uelbosque.appliedMaths.figures.ShapeBase;
 import com.uelbosque.appliedMaths.figures.Sphere;
 import com.uelbosque.appliedMaths.figures.movements.Rotation;
 import com.uelbosque.appliedMaths.figures.movements.Translation;
+import com.uelbosque.appliedMaths.game.Direction;
 import com.uelbosque.appliedMaths.game.Game;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -94,6 +95,12 @@ public class App {
             }
             if (Keyboard.getEventKey() == Keyboard.KEY_S && Keyboard.getEventKeyState()) {
                 currentGame.suffleBall();
+            }
+            if (Keyboard.getEventKey() == Keyboard.KEY_LEFT && Keyboard.getEventKeyState()) {
+                currentGame.moveSelector(Direction.Left);
+            }
+            if (Keyboard.getEventKey() == Keyboard.KEY_RIGHT && Keyboard.getEventKeyState()) {
+                currentGame.moveSelector(Direction.Right);
             }
         }
     }
