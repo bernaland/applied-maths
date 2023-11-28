@@ -1,11 +1,10 @@
 package com.uelbosque.appliedMaths.game;
 
-import static org.lwjgl.util.glu.GLU.gluLookAt;
-
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.uelbosque.appliedMaths.figures.Cone;
+import com.uelbosque.appliedMaths.figures.Cup;
+import com.uelbosque.appliedMaths.figures.Selector;
 import com.uelbosque.appliedMaths.figures.ShapeBase;
 import com.uelbosque.appliedMaths.figures.Sphere;
 import com.uelbosque.appliedMaths.figures.CircleVertex;
@@ -26,9 +25,9 @@ public class Game {
     public void initialize() {
         shapes.clear();
 
-        Cone left = new Cone(4, 5, 5),
-            center = new Cone(4, 5, 5),
-            right = new Cone(4, 5, 5);
+        Cup left = new Cup(4, 5, 5),
+            center = new Cup(4, 5, 5),
+            right = new Cup(4, 5, 5);
 
         Translation tLeft = new Translation(-3, 1, 0),
             tRight = new Translation(3, 1, 0),
@@ -45,6 +44,7 @@ public class Game {
         shapes.add(left);
         shapes.add(center);
         shapes.add(right);
+        shapes.add(new Selector());
     }
 
     public void moveBall() {

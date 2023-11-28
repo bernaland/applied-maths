@@ -3,7 +3,7 @@ package com.uelbosque.appliedMaths;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
-import com.uelbosque.appliedMaths.figures.Cone;
+import com.uelbosque.appliedMaths.figures.Cup;
 import com.uelbosque.appliedMaths.figures.ShapeBase;
 import com.uelbosque.appliedMaths.figures.Sphere;
 import com.uelbosque.appliedMaths.figures.movements.Rotation;
