@@ -3,27 +3,11 @@ package com.uelbosque.appliedMaths;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
-import com.uelbosque.appliedMaths.figures.Cup;
-import com.uelbosque.appliedMaths.figures.ShapeBase;
-import com.uelbosque.appliedMaths.figures.Sphere;
-import com.uelbosque.appliedMaths.figures.movements.Rotation;
-import com.uelbosque.appliedMaths.figures.movements.Translation;
 import com.uelbosque.appliedMaths.game.Direction;
 import com.uelbosque.appliedMaths.game.Game;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.util.glu.GLU.*;
-
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Random;
-
-import javax.swing.Box;
-
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-
-import org.lwjgl.BufferUtils;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
@@ -101,6 +85,12 @@ public class App {
             }
             if (Keyboard.getEventKey() == Keyboard.KEY_RIGHT && Keyboard.getEventKeyState()) {
                 currentGame.moveSelector(Direction.Right);
+            }
+            if (Keyboard.getEventKey() == Keyboard.KEY_RETURN && Keyboard.getEventKeyState()) {
+                currentGame.finishGame();
+            }
+            if (Keyboard.getEventKey() == Keyboard.KEY_ESCAPE && Keyboard.getEventKeyState()) {
+                currentGame.initialize();
             }
         }
     }
