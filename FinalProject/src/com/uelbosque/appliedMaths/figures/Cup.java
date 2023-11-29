@@ -2,14 +2,14 @@ package com.uelbosque.appliedMaths.figures;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class Cone extends ShapeBase {
+public class Cup extends ShapeBase {
     private double stepSize = Math.PI / 30;
     private float height;
     private float topWidth;
     private float bottomWidth;
     // private float rotation = 0;
 
-    public Cone(float topWidth, float bottomWidth, float height) {
+    public Cup(float topWidth, float bottomWidth, float height) {
         super();
         float min = Math.min(height, topWidth);
         min = Math.min(min, bottomWidth);
@@ -22,7 +22,6 @@ public class Cone extends ShapeBase {
     @Override
     protected void buildShape() {
         glTranslatef(this.translation.getxCoor(), this.translation.getyCoor(), this.translation.getzCoor() - 6);
-        // rotation = rotation > 360 ? rotation - 360 : rotation;
         
         glRotatef(this.rotation.getAngle(), this.rotation.getX(), this.rotation.getY(), this.rotation.getZ());
         int sectors = 10;

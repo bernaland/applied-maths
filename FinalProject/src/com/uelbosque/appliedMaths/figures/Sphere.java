@@ -14,13 +14,13 @@ public class Sphere extends ShapeBase {
     @Override
     protected void buildShape() {
         int red = 1, green = 0;
-        glTranslatef(this.translation.getxCoor(), this.translation.getyCoor(), this.translation.getzCoor());
+        glTranslatef(this.translation.getxCoor(), this.translation.getyCoor(), this.translation.getzCoor() - 4);
         glRotated(60, 1, 0, 0);
         glRotated(60, 0, 1, 0);
         for (double phi = -Math.PI / 2; phi <= Math.PI / 2; phi += step) {
             glBegin(GL_TRIANGLES);
             for (double theta = 0; theta <= 2 * Math.PI; theta += step) {
-                glColor3f(red, green, 0);
+                glColor3f(red, green, 10);
                 CircleVertex v1 = new CircleVertex(phi, theta, currentRadius),
                     v2 = new CircleVertex(phi + step, theta, currentRadius),
                     v3 = new CircleVertex(phi + step, theta + step, currentRadius);
